@@ -1,0 +1,60 @@
+{
+  "name": "n8n-nodes-xano",
+  "version": "1.0.1",
+  "description": "Xano custom node for n8n workflow automation platform",
+  "keywords": [
+    "n8n-community-node-package"
+  ],
+  "license": "MIT",
+  "homepage": "https://www.xano.com/",
+  "author": {
+    "name": "Unico",
+    "email": "aftab.mulani@unicoconnect.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Aftab0012/n8n-nodes-xano.git"
+  },
+  "engines": {
+    "node": ">=20.15"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "npx rimraf dist && tsc && gulp build:icons",
+    "dev": "tsc --watch",
+    "format": "prettier nodes credentials --write",
+    "lint": "eslint nodes credentials",
+    "lintfix": "eslint nodes credentials --fix",
+    "prepublishOnly": "npm run build && npm run lint"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/XanoApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/Xano/Xano.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "~8.32.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-n8n-nodes-base": "^1.16.3",
+    "gulp": "^5.0.0",
+    "gulp-strip-debug": "^6.0.0",
+    "n8n-core": "^1.14.1",
+    "n8n-workflow": "^1.82.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@types/node": "^24.0.3"
+  },
+  "peerDependencies": {
+    "n8n-core": "^1.14.1",
+    "n8n-workflow": "^1.82.0"
+  }
+}

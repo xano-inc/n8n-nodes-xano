@@ -2,6 +2,16 @@
 
 A community-contributed **n8n integration** for [Xano](https://www.xano.com/), enabling workflow automation through custom API actions like managing rows, fetching table schemas, and more.
 
+[n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
+
+[Installation](#installation)  
+[Operations](#supported_operationss)  
+[Credentials](#credentials)  <!-- delete if no auth needed -->  
+[Compatibility](#compatibility)  
+[Usage](#usage)  <!-- delete if not using this section -->  
+[Resources](#resources)  
+[Version history](#version-history)  <!-- delete if not using this section -->  
+
 ---
 
 ## 📁 Folder Structure Overview
@@ -30,7 +40,7 @@ n8n-nodes-xano/
 
 ```
 
-## 🔧 Supported Actions
+## 🔧 Supported Operations
 
 | Action                   | Value (operation)     | Description                              |
 | ------------------------ | --------------------- | ---------------------------------------- |

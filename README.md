@@ -5,7 +5,7 @@ A community-contributed **n8n integration** for [Xano](https://www.xano.com/), e
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
 [Installation](#installation)  
-[Operations](#supported_operations)  
+[Operations](#-supported-operations)  
 [Credentials](#credentials)  <!-- delete if no auth needed -->  
 [Compatibility](#compatibility)  
 [Usage](#usage)  <!-- delete if not using this section -->  

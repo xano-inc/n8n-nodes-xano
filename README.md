@@ -1,11 +1,11 @@
 # 📘 n8n-nodes-xano — Custom Node Documentation
 
-A community-contributed **n8n integration** for [Xano](https://www.xano.com/), enabling workflow automation through custom API actions like managing rows, fetching table schemas, and more.
+This is an n8n community node. It lets you use [Xano](https://www.xano.com/) in your n8n workflows, enabling workflow automation through custom API actions like managing rows, fetching table schemas, and more.
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
 [Installation](#installation)  
-[Operations](#-supported-operations)  
+[Operations](#-operations)  
 [Credentials](#credentials)  <!-- delete if no auth needed -->  
 [Compatibility](#compatibility)  
 [Usage](#usage)  <!-- delete if not using this section -->  
@@ -14,33 +14,11 @@ A community-contributed **n8n integration** for [Xano](https://www.xano.com/), e
 
 ---
 
-## 📁 Folder Structure Overview
+## Installation
 
-```
+Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
 
-n8n-nodes-xano/
-├── assets/                  # Any assets (like SVG logos)
-├── credentials/             # Credential definitions for Xano
-├── dist/                    # Output from the build process (compiled JS)
-├── node\_modules/            # Local dependencies
-├── nodes/
-│   └── Xano/
-│       ├── descriptions/    # UI property definitions for operations
-│       ├── execute/         # Implementation of the operations logic
-│       ├── methods/         # Load option methods for dropdowns
-│       └── utils/           # Utilities like API client, error handling
-├── .babelrc                 # Babel config for transpiling TS to JS
-├── .editorconfig            # Editor formatting config
-├── .eslintrc.js             # ESLint configuration
-├── .eslintrc.prepublish.js  # Prepublish lint rules
-├── .eslintignore            # Files ignored by ESLint
-├── .gitignore               # Files ignored by Git
-├── gulpfile.js              # Gulp tasks (e.g., strip console logs)
-├── package.json             # Node metadata and build scripts
-
-```
-
-## 🔧 Supported Operations
+## 🔧 Operations
 
 | Action                   | Value (operation)     | Description                              |
 | ------------------------ | --------------------- | ---------------------------------------- |
@@ -53,60 +31,78 @@ n8n-nodes-xano/
 | ✅ Update Bulk Rows      | `bulkUpdateContent`   | Bulk update multiple records             |
 | ✅ Search Rows           | `searchRow`           | Search using filter queries (JSON input) |
 
----
+## Credentials
 
-## 🧱 Folder Purpose Breakdown
+To use this node in your workflows, you’ll need to authenticate your Xano account using the **Metadata API Access Token**.
 
-### `nodes/Xano/descriptions/`
+### 🔑 Step 1: Get Your Xano Metadata API Access Token
 
-Defines UI properties (`INodeProperties[]`) for dropdowns and inputs.
+1. **Log in to your Xano account**
+   Visit: [https://xano.com](https://xano.com)
 
-- `FieldProperties.ts`
-- `OperationProperties.ts`
-- `ResourceProperties.ts`
-- `Workspace.ts`
+2. **Access your instance**
+   In the lower-left corner of the dashboard, click **Instances**.
 
-### `nodes/Xano/execute/`
+3. **Open instance settings**
+   Click the ⚙️ icon next to your instance name.
 
-Implements the logic for operations.
+4. **Select Metadata API**
+   From the panel that opens, select **Metadata API**.
 
-- `TableOperations.ts` → CRUD/search actions
-- `XanoExecute.ts` → Dispatcher for operations
+5. **Generate an Access Token**
+   Click on **➕ Create Token** and configure the following:
+   - **Name**: Something descriptive like `n8n integration token`
+   - **Expiry**: Set an expiry (e.g. 7 days, or "Never" if preferred)
+   - **Scopes**: Select the necessary access:
+     - ✅ `Database` (CRUD)
 
-### `nodes/Xano/methods/`
+     - ✅ `Content`, `API Groups`, or other required scopes for your use case
 
-Load data dynamically into dropdowns.
+   > ⚠️ Make sure to select `Read` and `Update` at a minimum for basic operations.
 
-- `XanoLoadOptions.ts` → Methods like `getWorkspaces`, `getTables`, `getTableFields`
+6. **Copy the generated access token**
+   This token will be shown only once. Store it securely.
 
-### `nodes/Xano/utils/`
+### 🔌 Step 2: Add Credentials in n8n
 
-Common utilities and services.
+1. Open your n8n instance
+2. Go to **Credentials** and click **"New"**
+3. Search for **Xano API** (your node’s credential type)
+4. In the **Access Token** field, paste the token from Xano
 
-- `XanoApiClient.ts` → Handles auth and HTTP requests
-- `ErrorHandler.ts` → Maps errors to user-friendly messages
-- `types.d.ts` → Type definitions (e.g., search query types)
+#### ✅ Successful connection will show:
 
----
+![Connection Success](./assets/success.png)
 
-## 🔎 Key Features & Highlights
+#### ❌ If token is invalid or expired:
 
-✅ Supports JSON-based search input (via `searchItemsJson`)
-✅ Dynamic dropdowns for workspaces, tables, fields
-✅ Friendly error messages for Xano error codes
-✅ Alphabetized dropdowns for lint compatibility
-✅ Console logs removed from final build (via Gulp)
-✅ Type-safe field inputs and structure
+![Connection Failed](./assets/error.png)
 
----
+> If the token is invalid, regenerate one from Xano and repeat the above steps.
 
-## 📚 Best Practices Followed
+### ✅ Final Step
 
-✅ Modular feature-based file organization
-✅ Uses `typeOptions.loadOptionsMethod` for dynamic UI
-✅ Handles errors with HTTP status awareness
-✅ `searchRow` supports JSON arrays for flexible filters
-✅ Field dropdowns exclude "id" from required fields
-✅ Compatible with n8n's custom extensions framework
+Once the connection is verified, you’re ready to start using Xano in your workflows via this custom node!
 
----
+## Compatibility
+
+Tested on n8n v1.100.0 and above.
+
+## Usage
+
+Note about the **Search Rows** operation. It uses a simplified version of the [external filtering search](https://docs.xano.com/xano-features/metadata-api/search#search) syntax. 
+
+Here's a quick example where I'm searching for the record where id = 2.
+
+```[{"id|=":"2"}]```
+
+Simply add the JSON above to the Search field.
+
+## Resources
+
+* [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)
+* [Xano Documentation](https://docs.xano.com/)
+
+## Version history
+###0.1.0
+Initial release

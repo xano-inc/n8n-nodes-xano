@@ -6,11 +6,11 @@ This is an n8n community node. It lets you use [Xano](https://www.xano.com/) in 
 
 [Installation](#installation)  
 [Operations](#-operations)  
-[Credentials](#credentials)  <!-- delete if no auth needed -->  
+[Credentials](#credentials) <!-- delete if no auth needed -->  
 [Compatibility](#compatibility)  
-[Usage](#usage)  <!-- delete if not using this section -->  
+[Usage](#usage) <!-- delete if not using this section -->  
 [Resources](#resources)  
-[Version history](#version-history)  <!-- delete if not using this section -->  
+[Version history](#version-history) <!-- delete if not using this section -->
 
 ---
 
@@ -90,11 +90,11 @@ Tested on n8n v1.100.0 and above.
 
 ## Usage
 
-Note about the **Search Rows** operation. It uses a simplified version of the [external filtering search](https://docs.xano.com/xano-features/metadata-api/search#search) syntax. 
+Note about the **Search Rows** operation. It uses a simplified version of the [external filtering search](https://docs.xano.com/xano-features/metadata-api/search#search) syntax.
 
 Here's a quick example where I'm searching for the record where id = 2.
 
-```[{"id|=":"2"}]```
+`[{"id|=":"2"}]`
 
 Simply add the JSON above to the Search field.
 
@@ -102,9 +102,11 @@ Simply add the JSON above to the Search field.
 
 ## Resources
 
-* [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)
-* [Xano Documentation](https://docs.xano.com/)
+- [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)
+- [Xano Documentation](https://docs.xano.com/)
 
 ## Version history
-###0.1.0
+
+### 1.0.1
+
 Initial release

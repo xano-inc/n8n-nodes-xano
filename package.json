@@ -3,17 +3,21 @@
   "version": "1.0.1",
   "description": "Xano custom node for n8n workflow automation platform",
   "keywords": [
-    "n8n-community-node-package"
+    "n8n-community-node-package",
+    "xano",
+    "backend",
+    "database",
+    "api"
   ],
   "license": "MIT",
   "homepage": "https://www.xano.com/",
   "author": {
-    "name": "Unico",
-    "email": "aftab.mulani@unicoconnect.com"
+    "name": "Xano",
+    "email": "support@xano.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Aftab0012/n8n-nodes-xano.git"
+    "url": "https://github.com/xano-inc/n8n-nodes-xano.git"
   },
   "engines": {
     "node": ">=20.15"

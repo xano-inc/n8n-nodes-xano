@@ -1,6 +1,6 @@
 {
   "name": "@xano/n8n-nodes-xano",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Xano custom node for n8n workflow automation platform",
   "keywords": [
     "n8n-community-node-package",
@@ -55,8 +55,7 @@
     "typescript": "^5.8.2",
     "@types/node": "^24.0.3"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "peerDependencies": {
     "n8n-core": "^1.14.1",
     "n8n-workflow": "^1.82.0"

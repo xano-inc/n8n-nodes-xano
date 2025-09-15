@@ -109,4 +109,8 @@ Simply add the JSON above to the Search field.
 
 ### 1.0.1
 
-Initial release
+- Initial release
+
+### 1.0.2
+
+- Minor updates

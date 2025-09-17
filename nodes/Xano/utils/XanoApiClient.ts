@@ -27,7 +27,7 @@ export class XanoApiClient {
 	async init(): Promise<void> {
 		const credentials = await this.context.getCredentials('xanoApi');
 		this.accessToken = credentials.accessToken as string;
-		this.baseUrl = `${(credentials.baseUrl as string)?.replace(/\/+$/, '')}/api:meta`
+		this.baseUrl = `${(credentials.baseUrl as string)?.replace(/\/+$/, '')}/api:meta`;
 	}
 
 	async validateAuth(): Promise<void> {
@@ -111,7 +111,12 @@ export class XanoApiClient {
 
 	async getTables(workspaceId: string): Promise<INodePropertyOptions[]> {
 		await this.init();
-		console.log("Fetching tables for workspace:", workspaceId, "with base URL:", `${this.baseUrl}/workspace/${encodeURIComponent(workspaceId)}/table`);
+		console.log(
+			'Fetching tables for workspace:',
+			workspaceId,
+			'with base URL:',
+			`${this.baseUrl}/workspace/${encodeURIComponent(workspaceId)}/table`,
+		);
 		const tableOptions: IHttpRequestOptions = {
 			method: 'GET',
 			url: `${this.baseUrl}/workspace/${encodeURIComponent(workspaceId)}/table`,
@@ -133,7 +138,6 @@ export class XanoApiClient {
 				name: table.display || table.name || `Table ${table.id}`,
 				value: table.id?.toString() || table.name,
 			}));
-
 		} catch (error: any) {
 			// Handle specific HTTP status codes that should return empty array instead of throwing
 			if (error.response?.status === 401) {
@@ -224,18 +228,18 @@ export class XanoApiClient {
 	// 	return fieldOptions
 	// }
 	async getTableFields(workspaceId: string, tableId: string): Promise<INodePropertyOptions[]> {
-		await this.init()
+		await this.init();
 
-		const cacheKey = `${workspaceId}-${tableId}`
+		const cacheKey = `${workspaceId}-${tableId}`;
 
 		// Return from cache if exists
 		if (XanoApiClient.fieldCache[cacheKey]) {
-			console.log('Returning cached fields for:', XanoApiClient.fieldCache)
-			return XanoApiClient.fieldCache[cacheKey]
+			console.log('Returning cached fields for:', XanoApiClient.fieldCache);
+			return XanoApiClient.fieldCache[cacheKey];
 		}
 
 		// Clear all previous cache entries before adding new
-		XanoApiClient.fieldCache = {}
+		XanoApiClient.fieldCache = {};
 
 		// Fetch fresh schema
 		const schemaOptions: IHttpRequestOptions = {
@@ -246,38 +250,38 @@ export class XanoApiClient {
 				Accept: '*/*',
 			},
 			json: true,
-		}
+		};
 
-		const schemaResponse = await this.helpers.httpRequest(schemaOptions)
+		const schemaResponse = await this.helpers.httpRequest(schemaOptions);
 
 		if (!Array.isArray(schemaResponse)) {
 			throw new NodeOperationError(
 				this.context.getNode(),
-				'Invalid schema response: Expected an array of columns'
-			)
+				'Invalid schema response: Expected an array of columns',
+			);
 		}
 
 		const fieldOptions = schemaResponse
 			.filter((column) => column.access !== 'private')
 			.map((column) => {
-				let label = column.name || 'Unnamed'
+				let label = column.name || 'Unnamed';
 
 				// Append type always
-				if (column.type) label += ` (${column.type})`
+				if (column.type) label += ` (${column.type})`;
 
 				// Show `*` for required fields except `id`
-				const isIdField = column.name?.toLowerCase() === 'id'
+				const isIdField = column.name?.toLowerCase() === 'id';
 				if (column.required && !column.default && !isIdField) {
-					label += ' *'
+					label += ' *';
 				}
 
-				const descParts = []
-				if (column.type) descParts.push(`Type: ${column.type}`)
+				const descParts = [];
+				if (column.type) descParts.push(`Type: ${column.type}`);
 				if (column.required && !column.default && !isIdField) {
-					descParts.push('Required')
+					descParts.push('Required');
 				}
 				if (column.default) {
-					descParts.push(`Default: ${column.default}`)
+					descParts.push(`Default: ${column.default}`);
 				}
 
 				return {
@@ -286,22 +290,12 @@ export class XanoApiClient {
 					description: descParts.join(' • '),
 					required: column.required || false,
 					access: column.access || 'public',
-				}
-			})
+				};
+			});
 
 		// Cache only the current table
-		XanoApiClient.fieldCache[cacheKey] = fieldOptions
-		return fieldOptions
-	}
-
-	async getTableFieldsForCreate(workspaceId: string, tableId: string): Promise<INodePropertyOptions[]> {
-		const allFields = await this.getTableFields(workspaceId, tableId)
-		
-		// Filter out ID fields for create operations since they are auto-generated
-		return allFields.filter((field) => {
-			const fieldName = field.value?.toString().toLowerCase()
-			return fieldName !== 'id'
-		})
+		XanoApiClient.fieldCache[cacheKey] = fieldOptions;
+		return fieldOptions;
 	}
 
 	async getTableContent(
@@ -335,23 +329,23 @@ export class XanoApiClient {
 		sortOrder?: string,
 		searchConditions?: Array<Record<string, string>>,
 	): Promise<any> {
-		await this.init()
+		await this.init();
 
 		// Build body conditionally
 		const body: Record<string, any> = {
 			page,
 			per_page: perPage,
-		}
-		console.log("page", page, "perPage", perPage)
-		console.log("sortBy", sortBy, "sortOrder", sortOrder, "searchConditions", searchConditions)
+		};
+		console.log('page', page, 'perPage', perPage);
+		console.log('sortBy', sortBy, 'sortOrder', sortOrder, 'searchConditions', searchConditions);
 		if (sortBy && sortOrder) {
 			body.sort = {
 				[sortBy]: sortOrder,
-			}
+			};
 		}
 
 		if (searchConditions && Array.isArray(searchConditions) && searchConditions.length > 0) {
-			body.search = searchConditions
+			body.search = searchConditions;
 		}
 
 		const tableContentOptions: IHttpRequestOptions = {
@@ -364,9 +358,9 @@ export class XanoApiClient {
 			},
 			body,
 			json: true,
-		}
+		};
 
-		return this.helpers.httpRequest(tableContentOptions)
+		return this.helpers.httpRequest(tableContentOptions);
 	}
 
 	async createRow(workspaceId: string, tableId: string, rowData: any): Promise<any> {

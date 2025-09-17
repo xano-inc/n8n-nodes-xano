@@ -56,25 +56,5 @@ export const xanoLoadOptions = {
 				);
 			}
 		},
-
-		async getTableFieldsForCreate(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
-			const workspace = this.getCurrentNodeParameter('workspace') as string;
-			const table = this.getCurrentNodeParameter('table') as string;
-
-			if (!workspace || !table) {
-				return [];
-			}
-
-			try {
-				const apiClient = new XanoApiClient(this);
-				return await apiClient.getTableFieldsForCreate(workspace, table);
-			} catch (error: any) {
-				throw handleXanoError(
-					this.getNode(),
-					error,
-					`Failed to load table fields for create. Workspace: ${workspace}, Table: ${table}`,
-				);
-			}
-		},
 	},
 };

@@ -59,7 +59,7 @@ export const operationProperties: INodeProperties[] = [
 				value: 'bulkUpdateContent',
 				description: 'Bulk Update rows to a table',
 				action: 'Update rows in bulk by ID',
-			}
+			},
 		],
 		default: 'getTableContent',
 		required: true,

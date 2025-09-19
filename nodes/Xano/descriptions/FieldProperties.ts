@@ -86,7 +86,7 @@ export const fieldProperties: INodeProperties[] = [
 						name: 'fieldName',
 						type: 'options',
 						typeOptions: {
-							loadOptionsMethod: 'getTableFieldsForCreate',
+							loadOptionsMethod: 'getTableFields',
 							loadOptionsDependsOn: ['workspace', 'table'],
 						},
 						default: '',
@@ -142,7 +142,8 @@ export const fieldProperties: INodeProperties[] = [
 			loadOptionsDependsOn: ['workspace', 'table'], // Optional but helpful for accuracy
 		},
 		default: '',
-		description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
+		description:
+			'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
 		displayOptions: {
 			show: {
 				resource: ['table'],
@@ -167,7 +168,7 @@ export const fieldProperties: INodeProperties[] = [
 				resource: ['table'],
 				operation: ['searchRow'],
 			},
-		}
+		},
 	},
 
 	{
@@ -366,7 +367,7 @@ export const fieldProperties: INodeProperties[] = [
 										name: 'name',
 										type: 'options',
 										typeOptions: {
-											loadOptionsMethod: 'getTableFieldsForCreate', // Auto-populated from schema
+											loadOptionsMethod: 'getTableFields', // Auto-populated from schema
 											loadOptionsDependsOn: ['workspace', 'table'],
 										},
 										default: '',
